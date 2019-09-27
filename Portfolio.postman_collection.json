@@ -1,0 +1,582 @@
+{
+	"info": {
+		"_postman_id": "4e59710d-c3dc-47e7-84af-ca1d41eeb9f8",
+		"name": "Portfolio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth0",
+			"item": [
+				{
+					"name": "Manage users : Create a user username/password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "q8IMYs1SKzKtXLov8V3JZoz1hN70x3A7",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "emailOFuser",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password",
+									"type": "text"
+								},
+								{
+									"key": "connection",
+									"value": "Username-Password-Authentication",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://gbproject.auth0.com/dbconnections/signup",
+							"protocol": "https",
+							"host": [
+								"gbproject",
+								"auth0",
+								"com"
+							],
+							"path": [
+								"dbconnections",
+								"signup"
+							]
+						},
+						"description": "Given the user credentials, the connection specified and the Auth0 account information, it will create a new user. You can then authenticate with this user using the /oauth/ro endpoint. This endpoint only works for database connections."
+					},
+					"response": []
+				},
+				{
+					"name": "Authorization Code password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b59fb44e-b08c-4eab-9ae0-2642c6eaa40d",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"",
+									"pm.globals.set(\"AuthTokenCoz\" , \"Bearer \" + jsonData.access_token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"grant_type\":\"password\",\r\n\"username\": \"cozbanetto@hotmail.com\",\r\n\"password\": \"Giuliano1\",\r\n\"audience\": \"https://openbanking.com/api\", \r\n\"scope\": \"openid profile email\", \r\n\"client_id\": \"q8IMYs1SKzKtXLov8V3JZoz1hN70x3A7\", \r\n\"client_secret\": \"Qg2Zf0WDouLl11RooZWaSRmS3xDYONLB0gbFbWFjRu_lQc9rZ4Kr69WBa4mtV1TX\"}\r\n"
+						},
+						"url": {
+							"raw": "https://gbproject.auth0.com/oauth/token",
+							"protocol": "https",
+							"host": [
+								"gbproject",
+								"auth0",
+								"com"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						},
+						"description": "This is the OAuth 2.0 grant that regular web apps utilize in order to access an API. Use this endpoint to exchange an Authorization Code for an Access Token."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "{{url}}/customers/search/unsecured Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenCoz}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\n\t\"filter\" : [\t\n\n\t{\n\t\"attribute\" : \"city\" ,\n\t\"operator\" : \"=\" ,\n\t\"value\" : \"'ZUERICH'\"  \n\t}\n\t] ,\n\t\n\t\"sorting\" : \" nickname asc\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/customers/search/unsecured",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"customers",
+								"search",
+								"unsecured"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchByname",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenCoz}}",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenGm}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/customers?nickname=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"customers"
+							],
+							"query": [
+								{
+									"key": "nickname",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search using filter  UNSECURED Simple Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenCoz}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\n\t\"filter\" : [\n\n\t\t{\n\t\"attribute\" : \"numberofcar\" ,\n\t\"operator\" : \">\" ,\n\t\"value\" : \"0\"  \n\t},\n\t\t\t{\n\t\"attribute\" : \"city\" ,\n\t\"operator\" : \"=\" ,\n\t\"value\" : \"'LUZERN'\"  \n\t},\n\t\t\t{\n\t\"attribute\" : \"gender\" ,\n\t\"operator\" : \"=\" ,\n\t\"value\" : \"'F'\"  \n\t}\n\t\n\t] ,\n\t\n\t\"sorting\" : \" cus.nickname asc\" ,\n\t\"top\" : 101\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/customers/search/unsecuredsimple",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"customers",
+								"search",
+								"unsecuredsimple"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "master data sec",
+			"item": [
+				{
+					"name": "security master data search",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenCoz}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\n\t\"filter\" : [\t\n\t\t{\n\t\"andOr\" : \" and \" , \n\t\"attribute\" : \"isin\" ,\n\t\"operator\" : \" =  \" ,\n\t\"value\" : \"'IT0005058901'\" \n\t} \n\t\n\t] ,\n\t\n\t\"sorting\" : \" ISIN asc\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/securities/search/unsecured",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"securities",
+								"search",
+								"unsecured"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "prices search",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenCoz}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\n\t\"filter\" : [\t\n\t\t{\n\t\"andOr\" : \" and \" , \n\t\"attribute\" : \" currency\" ,\n\t\"operator\" : \" =  \" ,\n\t\"value\" : \" 'EUR'  \" \n\t}  ,\n\t\t\t{\n\t\"andOr\" : \" and \" , \n\t\"attribute\" : \" ISIN\" ,\n\t\"operator\" : \" like  \" ,\n\t\"value\" : \" 'IT%'  \" \n\t}  ,\n\t\t{\n\t\"andOr\" : \" and \" , \n\t\"attribute\" : \" islast\" ,\n\t\"operator\" : \" =  \" ,\n\t\"value\" : \" true \" \n\t}  \n\t] ,\n\t\n\t\"sorting\" : \" valuedate desc\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/securitiesprice/search/unsecured",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"securitiesprice",
+								"search",
+								"unsecured"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "transaction",
+			"item": [
+				{
+					"name": "Buy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenCoz}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountid\": 1024283,\n  \"cashaccountid\": 1024283,\n  \"isin\": \"IT0015770651\",\n    \"currency\": \"EUR\",\n\n  \"quantity\": 1000,\n  \"sign\": \"BUY\",\n  \"valuedate\": \"2019-04-10T09:17:55.218Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/sectransactions/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sectransactions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cash transaction search",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenCoz}}",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenGm}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"filter\" : [\t\n\t{\n\t\"attribute\" : \" e.currency\" ,\n\t\"operator\" : \"=\" ,\n\t\"value\" : \"'EUR'\" \n\t} \t] ,\n\t\"sorting\" : \" e.id asc\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/cashtransactions/search",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cashtransactions",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "securities transaction search",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenCoz}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\n\t\"filter\" : [\t\n\n\t] ,\n\t\n\t\"sorting\" : \" e.id asc\"\n\n}"
+						},
+						"url": {
+							"raw": "{{url}}/sectransactions/search/unsecured",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sectransactions",
+								"search",
+								"unsecured"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sell",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenCoz}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountid\": 1,\n  \"cashaccountid\": 2,\n  \"isin\": \"IT001\",\n  \"currency\" : \"USD\" ,\n  \"quantity\": 10,\n  \"sign\": \"SELL\",\n  \"valuedate\": \"2019-04-10T09:17:55.218Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/sectransactions/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sectransactions",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "portfolio balance",
+			"item": [
+				{
+					"name": "Cash balance Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenCoz}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/accounts/2/balancecash",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"accounts",
+								"2",
+								"balancecash"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sec balance Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AuthTokenCoz}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/accounts/1/balancesec",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"accounts",
+								"1",
+								"balancesec"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

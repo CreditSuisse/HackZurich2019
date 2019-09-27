@@ -32,7 +32,17 @@ below).
 
 You can get the password by asking one of the Credit Suisse staff here at the event. 
 
+The endpoint for the Portfolio client is located here:  
+
+```http://portfolio.schnitzel.tech:8888/openapi```
+
+The data model is also located within this folder as:  
+
+![portfolio datamodel](portfolio_datamodel.png)
+
 Good Luck!  
+
+
 
 Useful Links:
 1.  Jupyter Notebooks:  https://jupyter.org/install
