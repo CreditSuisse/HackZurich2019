@@ -3,7 +3,7 @@
 ##  Welcome to the Credit Suisse HackZurich challenge!  
 
 Within this repo you will find instructions and documentation on how to 
-gain access to the to the IS&P Research articles 
+gain access to the Dow Jones news feed as well as the IS&P Research articles 
 produced by our team of analysts in Zurich for public consumption.  The code 
 and data store however are all maintained and built by Credit Suisse Labs based in 
 San Francisco CA.  
@@ -32,7 +32,7 @@ below).
 
 You can get the password by asking one of the Credit Suisse staff here at the event. 
 
-Good Luck!
+Good Luck!  
 
 Useful Links:
 1.  Jupyter Notebooks:  https://jupyter.org/install
