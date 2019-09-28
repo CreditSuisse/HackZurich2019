@@ -49,4 +49,5 @@ Useful Links:
 2.  ES Overview:  https://www.elastic.co/guide/en/elasticsearch/reference/7.1/index.html
 3.  ES Query Language Docs:  https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl.html
 4.  Python ES Library (used in the notebook):  https://elasticsearch-py.readthedocs.io/en/master/
+5.  Dow Jones DNA News Reference Data: https://console.cloud.google.com/storage/browser/csnext-reference?project=hack-zurich-primary
 
